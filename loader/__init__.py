@@ -7,6 +7,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     name = req.params.get('name')
+    test = req.params.get('test')
     if not name:
         try:
             req_body = req.get_json()
@@ -20,5 +21,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+             status_code=200
+        )
+
+    if test:
+        return func.HttpResponse(f"This is test you passed: {test}. This HTTP triggered function executed successfully.")
+    else:
+        return func.HttpResponse(
+             "This HTTP triggered function executed successfully. Pass a test word in the query string or in the request body for a personalized response.",
              status_code=200
         )
